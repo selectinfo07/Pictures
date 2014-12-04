@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Controllers\CategoryAPIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SubCateogoryAPIController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -149,11 +150,33 @@
       <DependentUpon>PicturesModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SubCategory.cs">
+      <DependentUpon>PicturesModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>PicturesModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\3D_Cat.png" />
+    <Content Include="Content\Images\Action_Cat.jpg" />
+    <Content Include="Content\Images\Child_Cloth.png" />
+    <Content Include="Content\Images\Child_Shoes.png" />
+    <Content Include="Content\Images\Education_Book.png" />
+    <Content Include="Content\Images\Horror_Book.png" />
+    <Content Include="Content\Images\Horror_Cat.jpg" />
+    <Content Include="Content\Images\Ladies_Cloth.png" />
+    <Content Include="Content\Images\Linux_Soft.png" />
+    <Content Include="Content\Images\Mac_Soft.png" />
+    <Content Include="Content\Images\Men_Cloth.png" />
+    <Content Include="Content\Images\Men_Shoes.png" />
+    <Content Include="Content\Images\Novel_Book.png" />
+    <Content Include="Content\Images\Romantic_Cat.jpg" />
+    <Content Include="Content\Images\Science_Book.png" />
+    <Content Include="Content\Images\SciFi_Cat.png" />
+    <Content Include="Content\Images\Story_Book.png" />
+    <Content Include="Content\Images\Windows_Soft.png" />
+    <Content Include="Content\Images\Women_Shoes.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

@@ -12,6 +12,7 @@
       [CATEGORIES].[Name] AS [Name]
       FROM [dbo].[CATEGORIES] AS [CATEGORIES]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SubCategories" EntityType="PicturesModel.Store.SubCategories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="PicturesModel.Store.Users" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
         <!--Errors Found During Generation:
@@ -23,6 +24,15 @@
           </Key>
           <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SubCategories">
+          <Key>
+            <PropertyRef Name="SubCategoryId" />
+          </Key>
+          <Property Name="SubCategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -38,6 +48,7 @@
         <EntityContainer Name="PicturesEntities" p1:LazyLoadingEnabled="true">
           <EntitySet Name="CATEGORIES" EntityType="PicturesModel.CATEGORy" />
           <EntitySet Name="Users" EntityType="PicturesModel.User" />
+          <EntitySet Name="SubCategories" EntityType="PicturesModel.SubCategory" />
         </EntityContainer>
         <EntityType Name="CATEGORy">
           <Key>
@@ -52,6 +63,15 @@
           </Key>
           <Property Name="UserID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="IEMINumber" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SubCategory">
+          <Key>
+            <PropertyRef Name="SubCategoryId" />
+          </Key>
+          <Property Type="Int32" Name="SubCategoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="CategoryId" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageUrl" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -72,6 +92,16 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="IEMINumber" ColumnName="IEMINumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SubCategories">
+            <EntityTypeMapping TypeName="PicturesModel.SubCategory">
+              <MappingFragment StoreEntitySet="SubCategories">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

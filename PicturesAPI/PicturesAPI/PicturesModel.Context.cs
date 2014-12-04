@@ -27,5 +27,6 @@ namespace PicturesAPI
     
         public DbSet<CATEGORy> CATEGORIES { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
     }
 }
