@@ -14,7 +14,15 @@ namespace PicturesAPI
     
     public partial class CATEGORy
     {
+        public CATEGORy()
+        {
+            this.Items = new HashSet<Item>();
+        }
+    
         public int CategoryId { get; set; }
         public string Name { get; set; }
+        public string ImageUrl { get; set; }
+    
+        public virtual ICollection<Item> Items { get; set; }
     }
 }
