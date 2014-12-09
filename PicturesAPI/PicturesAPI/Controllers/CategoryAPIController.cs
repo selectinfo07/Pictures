@@ -1,5 +1,7 @@
-﻿using System;
+﻿using PicturesAPI.Models;
+using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
@@ -16,7 +18,7 @@ namespace PicturesAPI.Controllers
         private PicturesEntities db = new PicturesEntities();
 
         // GET api/CategoryAPI
-        public IEnumerable<CATEGORy> GetCATEGORies(string imei)
+        public IEnumerable<CategoriesModel> GetCATEGORies(string imei)
         {
             PicturesAPI.User user = db.Users.FirstOrDefault(u => u.IEMINumber == imei);
             if (user == null)
@@ -26,8 +28,21 @@ namespace PicturesAPI.Controllers
                 db.Users.Add(user);
                 db.SaveChanges();
             }
+            string baseUrl = ConfigurationManager.AppSettings["BaseUrlCat"];
+            List<CategoriesModel> objModelList = new List<CategoriesModel>();
+            AutoMapper.Mapper.CreateMap<CATEGORy, CategoriesModel>()
+                .ForMember(emp => emp.ImageUrl, map => map.MapFrom(p => baseUrl + p.ImageUrl)); 
 
-            return db.CATEGORIES.AsEnumerable();
+           
+            var categories = db.CATEGORIES.ToList();
+
+            AutoMapper.Mapper.Map(categories, objModelList);
+            //foreach (var item in categories)
+            //{
+            //    item.ImageUrl = baseUrl + item.ImageUrl;
+            //}
+
+            return objModelList;
         }
 
         // GET api/CategoryAPI/5

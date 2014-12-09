@@ -9,6 +9,11 @@ namespace PicturesAPI
     {
         public static void Register(HttpConfiguration config)
         {
+            //config.Routes.MapHttpRoute(
+            //    name: "FavouriteApi",
+            //    routeTemplate: "api/{controller}/{action}/{id}",
+            //    defaults: new { Controllers = "ItemsAPI", action = "AddFavourite", id = RouteParameter.Optional }
+            //);
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
