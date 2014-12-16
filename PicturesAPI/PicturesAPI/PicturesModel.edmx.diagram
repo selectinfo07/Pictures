@@ -8,6 +8,12 @@
         <EntityTypeShape EntityType="PicturesModel.CATEGORy" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PicturesModel.User" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PicturesModel.SubCategory" Width="1.5" PointX="2.6429818825065072" PointY="31.445346832017108" />
+        <EntityTypeShape EntityType="PicturesModel.EmployeeInfo" Width="1.5" PointX="4.375" PointY="0.625" />
+        <EntityTypeShape EntityType="PicturesModel.FavouriteItem" Width="1.5" PointX="6.875" PointY="0.75" />
+        <EntityTypeShape EntityType="PicturesModel.ItemImage" Width="1.5" PointX="4.5" PointY="3.625" />
+        <EntityTypeShape EntityType="PicturesModel.Item" Width="1.5" PointX="2.375" PointY="3" />
+        <AssociationConnector Association="PicturesModel.FK__Items__CategoryI__5CD6CB2B" />
+        <AssociationConnector Association="PicturesModel.FK__ItemImage__ItemI__4D94879B" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

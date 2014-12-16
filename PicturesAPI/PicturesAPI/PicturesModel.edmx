@@ -6,24 +6,68 @@
     <edmx:StorageModels>
     <Schema Namespace="PicturesModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="PicturesModelStoreContainer">
-          <EntitySet Name="CATEGORIES" EntityType="PicturesModel.Store.CATEGORIES" store:Type="Tables" store:Schema="dbo" store:Name="CATEGORIES">
-            <DefiningQuery>SELECT 
-      [CATEGORIES].[CategoryId] AS [CategoryId], 
-      [CATEGORIES].[Name] AS [Name]
-      FROM [dbo].[CATEGORIES] AS [CATEGORIES]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="CATEGORIES" EntityType="PicturesModel.Store.CATEGORIES" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeeInfo" EntityType="PicturesModel.Store.EmployeeInfo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FavouriteItems" EntityType="PicturesModel.Store.FavouriteItems" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ItemImages" EntityType="PicturesModel.Store.ItemImages" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Items" EntityType="PicturesModel.Store.Items" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SubCategories" EntityType="PicturesModel.Store.SubCategories" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Users" EntityType="PicturesModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__ItemImage__ItemI__4D94879B" Association="PicturesModel.Store.FK__ItemImage__ItemI__4D94879B">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemImages" EntitySet="ItemImages" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Items__CategoryI__5CD6CB2B" Association="PicturesModel.Store.FK__Items__CategoryI__5CD6CB2B">
+            <End Role="CATEGORIES" EntitySet="CATEGORIES" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
         </EntityContainer>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'SMPractice.dbo.CATEGORIES' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="CATEGORIES">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
           <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="varchar" MaxLength="255" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="EmployeeInfo">
+          <Key>
+            <PropertyRef Name="EmpNo" />
+          </Key>
+          <Property Name="EmpNo" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="EmpName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Salary" Type="decimal" Nullable="false" />
+          <Property Name="DeptName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Designation" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FavouriteItems">
+          <Key>
+            <PropertyRef Name="FavouriteItemId" />
+          </Key>
+          <Property Name="FavouriteItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemImages">
+          <Key>
+            <PropertyRef Name="ItemImageId" />
+          </Key>
+          <Property Name="ItemImageId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="nvarchar" Nullable="false" MaxLength="100" />
+          <Property Name="ItemId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="BrandName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Size" Type="nvarchar" MaxLength="10" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="CurrencySymbol" Type="nvarchar" MaxLength="10" />
+          <Property Name="ImageUrl" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="SubCategories">
           <Key>
@@ -41,6 +85,30 @@
           <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IEMINumber" Type="varchar" MaxLength="100" />
         </EntityType>
+        <Association Name="FK__ItemImage__ItemI__4D94879B">
+          <End Role="Items" Type="PicturesModel.Store.Items" Multiplicity="1" />
+          <End Role="ItemImages" Type="PicturesModel.Store.ItemImages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemImages">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Items__CategoryI__5CD6CB2B">
+          <End Role="CATEGORIES" Type="PicturesModel.Store.CATEGORIES" Multiplicity="0..1" />
+          <End Role="Items" Type="PicturesModel.Store.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORIES">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -49,6 +117,18 @@
           <EntitySet Name="CATEGORIES" EntityType="PicturesModel.CATEGORy" />
           <EntitySet Name="Users" EntityType="PicturesModel.User" />
           <EntitySet Name="SubCategories" EntityType="PicturesModel.SubCategory" />
+          <EntitySet Name="EmployeeInfoes" EntityType="PicturesModel.EmployeeInfo" />
+          <EntitySet Name="FavouriteItems" EntityType="PicturesModel.FavouriteItem" />
+          <EntitySet Name="ItemImages" EntityType="PicturesModel.ItemImage" />
+          <EntitySet Name="Items" EntityType="PicturesModel.Item" />
+          <AssociationSet Name="FK__Items__CategoryI__5CD6CB2B" Association="PicturesModel.FK__Items__CategoryI__5CD6CB2B">
+            <End Role="CATEGORy" EntitySet="CATEGORIES" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ItemImage__ItemI__4D94879B" Association="PicturesModel.FK__ItemImage__ItemI__4D94879B">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ItemImage" EntitySet="ItemImages" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="CATEGORy">
           <Key>
@@ -56,6 +136,8 @@
           </Key>
           <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="ImageUrl" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="PicturesModel.FK__Items__CategoryI__5CD6CB2B" FromRole="CATEGORy" ToRole="Item" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -73,6 +155,72 @@
           <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="ImageUrl" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="EmployeeInfo">
+          <Key>
+            <PropertyRef Name="EmpNo" />
+          </Key>
+          <Property Type="Int32" Name="EmpNo" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="EmpName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="Salary" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="String" Name="DeptName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Designation" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="FavouriteItem">
+          <Key>
+            <PropertyRef Name="FavouriteItemId" />
+          </Key>
+          <Property Type="Int32" Name="FavouriteItemId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ItemId" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemImage">
+          <Key>
+            <PropertyRef Name="ItemImageId" />
+          </Key>
+          <Property Type="Int32" Name="ItemImageId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ItemId" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="PicturesModel.FK__ItemImage__ItemI__4D94879B" FromRole="ItemImage" ToRole="Item" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Type="Int32" Name="ItemId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="CategoryId" />
+          <Property Type="String" Name="BrandName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Size" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="Price" Precision="10" Scale="2" />
+          <Property Type="String" Name="CurrencySymbol" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageUrl" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CATEGORy" Relationship="PicturesModel.FK__Items__CategoryI__5CD6CB2B" FromRole="Item" ToRole="CATEGORy" />
+          <NavigationProperty Name="ItemImages" Relationship="PicturesModel.FK__ItemImage__ItemI__4D94879B" FromRole="Item" ToRole="ItemImage" />
+        </EntityType>
+        <Association Name="FK__Items__CategoryI__5CD6CB2B">
+          <End Type="PicturesModel.CATEGORy" Role="CATEGORy" Multiplicity="0..1" />
+          <End Type="PicturesModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CATEGORy">
+              <PropertyRef Name="CategoryId" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ItemImage__ItemI__4D94879B">
+          <End Type="PicturesModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="PicturesModel.ItemImage" Role="ItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Item">
+              <PropertyRef Name="ItemId" />
+            </Principal>
+            <Dependent Role="ItemImage">
+              <PropertyRef Name="ItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -82,6 +230,7 @@
           <EntitySetMapping Name="CATEGORIES">
             <EntityTypeMapping TypeName="PicturesModel.CATEGORy">
               <MappingFragment StoreEntitySet="CATEGORIES">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
@@ -102,6 +251,49 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
                 <ScalarProperty Name="SubCategoryId" ColumnName="SubCategoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeInfoes">
+            <EntityTypeMapping TypeName="PicturesModel.EmployeeInfo">
+              <MappingFragment StoreEntitySet="EmployeeInfo">
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="EmpName" ColumnName="EmpName" />
+                <ScalarProperty Name="EmpNo" ColumnName="EmpNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FavouriteItems">
+            <EntityTypeMapping TypeName="PicturesModel.FavouriteItem">
+              <MappingFragment StoreEntitySet="FavouriteItems">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="FavouriteItemId" ColumnName="FavouriteItemId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemImages">
+            <EntityTypeMapping TypeName="PicturesModel.ItemImage">
+              <MappingFragment StoreEntitySet="ItemImages">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ItemImageId" ColumnName="ItemImageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="PicturesModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="CurrencySymbol" ColumnName="CurrencySymbol" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

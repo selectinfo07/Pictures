@@ -1,0 +1,64 @@
+﻿@model PicturesAPI.Item
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Item</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CATEGORy.Name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CATEGORy.Name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.BrandName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BrandName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Size)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Size)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Price)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Price)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CurrencySymbol)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CurrencySymbol)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ImageUrl)
+    </div>
+    <div class="display-field">
+        <img src= "/Content/Images/@Model.ImageUrl" alt="Image" style="width:60px"/>
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ItemId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
