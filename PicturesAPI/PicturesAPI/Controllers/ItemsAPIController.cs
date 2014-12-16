@@ -65,6 +65,9 @@ namespace PicturesAPI.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
 
+             var user = db.Users.FirstOrDefault(u => u.IEMINumber == iemi);
+           
+
             AutoMapper.Mapper.Map(item, objModel);
             if (objModel.ItemImages != null)
             {
@@ -73,6 +76,17 @@ namespace PicturesAPI.Controllers
                     image.ImageUrl = baseUrl + image.ImageUrl;
                 }
             }
+
+            if (user != null)
+            {
+                var favItems = db.FavouriteItems.Where(f => f.UserId == user.UserID).Select(d => d.ItemId).ToArray();
+                if (favItems != null && favItems.Contains(id))
+                {
+                    objModel.IsFavourite = true;
+                }
+
+            }
+
             return objModel;
         }
 

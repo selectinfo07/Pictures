@@ -18,16 +18,23 @@ namespace PicturesAPI.Controllers
         private PicturesEntities db = new PicturesEntities();
 
         // GET api/CategoryAPI
-        public IEnumerable<CategoriesModel> GetCATEGORies(string imei)
+        public IEnumerable<CategoriesModel> GetCATEGORies(string imei,string deviceGCM)
         {
             PicturesAPI.User user = db.Users.FirstOrDefault(u => u.IEMINumber == imei);
             if (user == null)
             {
                 user = new User();
                 user.IEMINumber = imei;
+                user.DeviceGCM = deviceGCM;
                 db.Users.Add(user);
                 db.SaveChanges();
             }
+            else
+            {
+                user.DeviceGCM = deviceGCM;
+                db.SaveChanges();
+            }
+
             string baseUrl = ConfigurationManager.AppSettings["BaseUrlCat"];
             List<CategoriesModel> objModelList = new List<CategoriesModel>();
             AutoMapper.Mapper.CreateMap<CATEGORy, CategoriesModel>()

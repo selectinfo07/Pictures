@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Mvc;
 
 namespace PicturesAPI.Controllers
 {
@@ -12,10 +13,10 @@ namespace PicturesAPI.Controllers
     {
         private PicturesEntities db = new PicturesEntities();
         // GET api/favouriteapi
-        public bool Get(int itemId, string iemi, int fav)
+        public object Get(int itemId, string iemi, int fav)
         {
             ItemDetailsModel objModel = new ItemDetailsModel();
-
+            string message = string.Empty;
             User user = db.Users.FirstOrDefault(u => u.IEMINumber == iemi);
             if (user != null)
             {
@@ -35,7 +36,7 @@ namespace PicturesAPI.Controllers
                             db.FavouriteItems.Add(favItem);
                             db.SaveChanges();
                         }
-                        return true;
+                        return new { message = "favorite saved successfully" };
                     }
                     else
                     {
@@ -46,18 +47,18 @@ namespace PicturesAPI.Controllers
                             db.SaveChanges();
                         }
 
-                        return true;
+                        return new { message = "favorite deleted successfully" };
                     }
 
                 }
                 else
                 {
-                    return false;
+                    return new { message = "Item not found" };
                 }
             }
             else
             {
-                return false;
+                return new { message = "Invalid user" };
             }
 
 
@@ -76,7 +77,7 @@ namespace PicturesAPI.Controllers
             //        image.ImageUrl = baseUrl + image.ImageUrl;
             //    }
             //}
-            return true;
+
         }
 
         // GET api/favouriteapi/5

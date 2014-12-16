@@ -17,6 +17,8 @@ namespace PicturesAPI.Models
         public string CurrencySymbol { get; set; }
         public string MainImageUrl { get; set; }
 
+        public bool IsFavourite { get; set; }
+
         public virtual ICollection<ItemImageModel> ItemImages { get; set; }
     }
 }
