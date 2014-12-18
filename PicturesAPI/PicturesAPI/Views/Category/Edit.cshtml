@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Edit", "Category", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-signin" }))
 {
     @Html.ValidationSummary(true)
 
@@ -19,7 +19,7 @@
             @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name , new { @class="form-control"})
             @Html.ValidationMessageFor(model => model.Name)
         </div>
 
@@ -27,15 +27,15 @@
             @Html.LabelFor(model => model.ImageUrl)
         </div>
         <div class="editor-field">
-            <img src= "/Content/Images/@Model.ImageUrl" alt="Image" style="width:60px"/>
+            <img src= "/Content/Images/@Model.ImageUrl" alt="Image" style="width:100px"/>
         </div>
         <div class="editor-field">
-            <input type="file" id="ImageUrl" name="ImageUrl" title="Change Image" />
+            <input type="file" id="ImageUrl" name="ImageUrl" title="Change Image" class="form-control" />
             @Html.ValidationMessageFor(model => model.ImageUrl)
         </div>
 
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Save" class="btn btn-lg btn-primary btn-block" style="margin-top:10px"  />
         </p>
     </fieldset>
 }
